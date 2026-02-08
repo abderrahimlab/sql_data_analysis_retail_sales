@@ -1,4 +1,4 @@
--- Active: 1770300525310@@127.0.0.1@5432@Project_01
+-- Active: 1770309306489@@127.0.0.1@5432@Project01
 -- Create table "retail_sales"
 DROP TABLE IF EXISTS retail_sales;
 
@@ -133,7 +133,7 @@ FROM
     retail_sales;
 
 -- Data analysis
--- 01 Write a SQL query to retrieve all columns for sales made on '2022-11-05
+-- 01 Retrieve sales records for a specific date (2022-11-05)
 SELECT
     *
 FROM
@@ -146,7 +146,7 @@ FROM
 WHERE
     sale_date = '2022-11-05';
 
--- 02 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022
+-- 02 Filter Clothing transactions with high quantity in November 2022
 SELECT
     *
 FROM
@@ -156,7 +156,7 @@ WHERE
     AND category = 'Clothing'
     AND quantiy >= 4;
 
--- 03 Write a SQL query to calculate the total sales (total_sale) for each category
+-- 03 Calculate total sales by product category
 SELECT
     category,
     sum(total_sale)
@@ -165,7 +165,7 @@ FROM
 GROUP BY
     category;
 
--- 04 Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category
+-- 04 Analyze average customer age for the Beauty category
 SELECT
     DISTINCT customer_id
 FROM
@@ -178,7 +178,7 @@ FROM
 WHERE
     category = 'Beauty';
 
--- 05 Write a SQL query to find all transactions where the total_sale is greater than 1000
+-- 05 Identify high-value transactions (total sales > 1000)
 SELECT
     *
 FROM
@@ -186,7 +186,7 @@ FROM
 WHERE
     total_sale > 1000;
 
--- 06 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category
+-- 06 Count transactions by gender and category
 SELECT
     *
 FROM
@@ -202,7 +202,7 @@ GROUP BY
     1,
     2;
 
--- 07 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
+-- 07 Determine the best-selling month for each year based on average sales
 SELECT
     *
 FROM
@@ -244,7 +244,7 @@ FROM
 WHERE
     rank = 1;
 
--- 08 Write a SQL query to find the top 5 customers based on the highest total sales
+-- 08 Identify top 5 customers by total sales value
 SELECT
     *
 FROM
@@ -262,7 +262,7 @@ ORDER BY
 LIMIT
     5;
 
--- 09 Write a SQL query to find the number of unique customers who purchased items from each category
+-- 09 Count unique customers per product category
 SELECT
     *
 FROM
@@ -276,7 +276,7 @@ FROM
 GROUP BY
     1;
 
--- 10 Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+-- 10 Analyze order distribution by daily time shifts (Morning, Afternoon, Evening)
 WITH shift_table AS(
     SELECT
         *,
