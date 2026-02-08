@@ -87,6 +87,162 @@ WHERE transactions_id IS NULL
    OR total_sale IS NULL;
 
 ```
+----------------------------------------------------
+01 Write a SQL query to retrieve all columns for sales made on '2022-11-05
+```sql
+SELECT
+    *
+FROM
+    retail_sales
+WHERE
+    sale_date = '2022-11-05';
+
+```
+02 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022
+```sql
+SELECT
+    *
+FROM
+    retail_sales
+WHERE
+    to_char(sale_date, 'YYYY-MM') = '2022-11'
+    AND category = 'Clothing'
+    AND quantiy >= 4;
+```
+Write a SQL query to calculate the total sales (total_sale) for each category
+```sql
+SELECT
+    category,
+    sum(total_sale)
+FROM
+    retail_sales
+GROUP BY
+    category;
+```
+Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.
+```sql
+SELECT
+    round(avg(age), 0) AS Average_age
+FROM
+    retail_sales
+WHERE
+    category = 'Beauty';
+
+```
+05 Write a SQL query to find all transactions where the total_sale is greater than 1000
+```sql
+SELECT
+    *
+FROM
+    retail_sales
+WHERE
+    total_sale > 1000;
+```
+06 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category
+```sql
+SELECT
+    DISTINCT category,
+    gender,
+    count(*)
+FROM
+    retail_sales
+GROUP BY
+    1,
+    2;
+```
+07 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
+```sql
+SELECT
+    year,
+    month,
+    sales_avg
+FROM
+    (
+        SELECT
+            extract(
+                YEAR
+                FROM
+                    sale_date
+            ) as year,
+            extract(
+                MONTH
+                FROM
+                    sale_date
+            ) as month,
+            round(avg(total_sale)) as sales_avg,
+            RANK () OVER(
+                PARTITION BY extract(
+                    YEAR
+                    FROM
+                        sale_date
+                )
+                ORDER BY
+                    round(avg(total_sale)) DESC
+            ) as rank
+        FROM
+            retail_sales
+        GROUP BY
+            1,
+            2
+    ) AS t1
+WHERE
+    rank = 1;
+```
+Write a SQL query to find the top 5 customers based on the highest total sales
+```sql
+SELECT
+    DISTINCT customer_id,
+    sum(total_sale)
+FROM
+    retail_sales
+GROUP BY
+    customer_id
+ORDER BY
+    sum(total_sale) DESC
+LIMIT
+    5;
+
+```
+ite a SQL query to find the number of unique customers who purchased items from each category
+```sql
+SELECT
+    DISTINCT category,
+    count(DISTINCT customer_id)
+FROM
+    retail_sales
+GROUP BY
+    1;
+```
+Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+```sql
+WITH shift_table AS(
+    SELECT
+        *,
+        CASE
+            WHEN extract(
+                HOUR
+                FROM
+                    sale_time
+            ) < 12 THEN 'Morning'
+            WHEN extract(
+                HOUR
+                FROM
+                    sale_time
+            ) BETWEEN 12
+            AND 17 THEN 'Afternoon'
+            ELSE 'Evening'
+        END AS shift
+    FROM
+        retail_sales
+)
+SELECT
+    shift,
+    count(*)
+FROM
+    shift_table
+GROUP BY
+    shift;
+```
 
 ## **Analysis Goals**
 
