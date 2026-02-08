@@ -86,6 +86,10 @@ WHERE transactions_id IS NULL
    OR cogs IS NULL
    OR total_sale IS NULL;
 ```
+### Data Cleaning Summary
+
+- Dataset size changed after cleaning: **X rows before cleaning → Y rows after cleaning**
+
 ## 5. Data Analysis Queries
 
 This section contains the analysis queries used in this project. Each question represents a real business scenario, and the SQL code below shows how I answered it using PostgreSQL.
@@ -246,7 +250,7 @@ GROUP BY
     shift;
 ```
 
-## **Analysis Goals**
+## 6. **Analysis Goals**
 
 * After cleaning, the dataset is suitable for:
 * Sales performance analysis
@@ -254,26 +258,32 @@ GROUP BY
 * Customer behavior analysis
 * Time-based sales trends
 
-## **Tools Used**
+## 7. **Tools Used**
 * PostgreSQL
 * pgAdmin 4
 * Visual Studio Code (Database Client Extension)
 * SQL
 
-## **Repository Structure**
+## 7. **Repository Structure**
 ├── project_1.sql          # SQL queries for data cleaning and analysis
 
 ├── retail_sales.csv       # Raw dataset
 
 └── README.md              # Project documentation
 
-## **Key Takeaways**
+## 9. **Key Takeaways**
 
 * Data quality issues must be identified before analysis
 * Customer attributes should be treated at the correct granularity
 * SQL can effectively handle real-world data cleaning challenges
 * Analytical decisions should always be justified by business logic
-## Author
+
+## 10. Limitations
+
+- Customer age values were inconsistent across transactions.
+- Since all transactions occurred during 2022–2023, age was standardized per customer using the average age.
+
+## 11. Author
 **Abderrahim Labdaoui**
 
 **Aspiring Data Analyst | SQL | PostgreSQL** 
