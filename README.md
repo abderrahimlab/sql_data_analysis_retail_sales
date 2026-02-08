@@ -85,10 +85,12 @@ WHERE transactions_id IS NULL
    OR price_per_unit IS NULL
    OR cogs IS NULL
    OR total_sale IS NULL;
-
 ```
-----------------------------------------------------
-01 Write a SQL query to retrieve all columns for sales made on '2022-11-05
+## 5. Data Analysis Queries
+
+This section contains the analysis queries used in this project. Each question represents a real business scenario, and the SQL code below shows how I answered it using PostgreSQL.
+
+01. Retrieve sales records for a specific date (2022-11-05)
 ```sql
 SELECT
     *
@@ -98,7 +100,7 @@ WHERE
     sale_date = '2022-11-05';
 
 ```
-02 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022
+02. Filter Clothing transactions with high quantity in November 2022
 ```sql
 SELECT
     *
@@ -109,7 +111,7 @@ WHERE
     AND category = 'Clothing'
     AND quantiy >= 4;
 ```
-Write a SQL query to calculate the total sales (total_sale) for each category
+03. Calculate total sales by product category
 ```sql
 SELECT
     category,
@@ -119,7 +121,7 @@ FROM
 GROUP BY
     category;
 ```
-Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.
+04. Analyze average customer age for the Beauty category
 ```sql
 SELECT
     round(avg(age), 0) AS Average_age
@@ -129,7 +131,7 @@ WHERE
     category = 'Beauty';
 
 ```
-05 Write a SQL query to find all transactions where the total_sale is greater than 1000
+05. Identify high-value transactions (total sales > 1000)
 ```sql
 SELECT
     *
@@ -138,7 +140,7 @@ FROM
 WHERE
     total_sale > 1000;
 ```
-06 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category
+06. Count transactions by gender and category
 ```sql
 SELECT
     DISTINCT category,
@@ -150,7 +152,7 @@ GROUP BY
     1,
     2;
 ```
-07 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
+07. Determine the best-selling month for each year based on average sales
 ```sql
 SELECT
     year,
@@ -188,7 +190,7 @@ FROM
 WHERE
     rank = 1;
 ```
-Write a SQL query to find the top 5 customers based on the highest total sales
+08. Identify top 5 customers by total sales value
 ```sql
 SELECT
     DISTINCT customer_id,
@@ -203,7 +205,7 @@ LIMIT
     5;
 
 ```
-ite a SQL query to find the number of unique customers who purchased items from each category
+09. Count unique customers per product category
 ```sql
 SELECT
     DISTINCT category,
@@ -213,7 +215,7 @@ FROM
 GROUP BY
     1;
 ```
-Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)
+10. Analyze order distribution by daily time shifts (Morning, Afternoon, Evening)
 ```sql
 WITH shift_table AS(
     SELECT
